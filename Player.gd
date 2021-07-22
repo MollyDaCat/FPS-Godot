@@ -8,6 +8,14 @@ const ACCEL = 4.5
 
 # constants for things like max speed of the player and other things like acceleration
 
+#Sprinting & Falshlight
+
+const MAX_SPRINT_SPEED = 30
+const SPRINT_ACCEL = 18
+var is_sprinting = false
+
+var flashlight
+
 var dir = Vector3()
 
 const DEACCEL = 16
@@ -25,6 +33,9 @@ func _ready():
 	rotation_helper = $Rotation_Helper
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	flashlight = $Rotation_Helper/Flashlight
+
 
 func _physics_process(delta):
 	process_input(delta)
@@ -66,6 +77,24 @@ func process_input(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	# ----------------------------------
+	# Sprinting
+	if Input.is_action_pressed("movement_sprint"):
+		is_sprinting = true
+	else:
+		is_sprinting = false
+	# ----------------------------------
+	
+	# ----------------------------------
+	# Turning the flashlight on/off
+	if Input.is_action_just_pressed("flashlight"):
+		if flashlight.is_visible_in_tree():
+			flashlight.hide()
+	else:
+		flashlight.show()
+	# ----------------------------------
+	
 
 func process_movement(delta):
 	dir.y = 0
@@ -77,11 +106,17 @@ func process_movement(delta):
 	hvel.y = 0
 
 	var target = dir
-	target *= MAX_SPEED
+	if is_sprinting:
+		target *= MAX_SPRINT_SPEED
+	else:
+		target *= MAX_SPEED
 
 	var accel
 	if dir.dot(hvel) > 0:
-		accel = ACCEL
+		if is_sprinting:
+			accel = SPRINT_ACCEL
+		else:
+			accel = ACCEL
 	else:
 		accel = DEACCEL
 

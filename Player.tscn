@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/Colors.material" type="Material" id=1]
 [ext_resource path="res://assets/Emission.material" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/32-32_white.png" type="Texture" id=7]
 [ext_resource path="res://assets/Titillium-Regular.otf" type="DynamicFontData" id=8]
 [ext_resource path="res://Player.gd" type="Script" id=9]
+[ext_resource path="res://AnimationPlayer_Manager.gd" type="Script" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 1.2
@@ -4064,6 +4065,7 @@ anims/Rifle_fire = SubResource( 18 )
 anims/Rifle_idle = SubResource( 19 )
 anims/Rifle_reload = SubResource( 20 )
 anims/Rifle_unequip = SubResource( 21 )
+script = ExtResource( 10 )
 
 [node name="Camera" type="Camera" parent="Rotation_Helper"]
 transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, -0.307539, -0.0646362 )
