@@ -1,5 +1,8 @@
 extends KinematicBody
 
+const MAX_HEALTH = 150
+
+
 const GRAVITY = -24.8
 var vel = Vector3()
 const MAX_SPEED = 20
@@ -260,17 +263,16 @@ func process_movement(delta):
 	hvel.y = 0
 
 	var target = dir
+
 	if is_sprinting:
 		target *= MAX_SPRINT_SPEED
 	else:
 		target *= MAX_SPEED
 
 	var accel
+
 	if dir.dot(hvel) > 0:
-		if is_sprinting:
-			accel = SPRINT_ACCEL
-		else:
-			accel = ACCEL
+		accel = ACCEL
 	else:
 		accel = DEACCEL
 
@@ -279,6 +281,7 @@ func process_movement(delta):
 	vel.z = hvel.z
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
+
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
@@ -286,6 +289,7 @@ func _input(event):
 
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot
 	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN:
 			if event.button_index == BUTTON_WHEEL_UP:
@@ -324,5 +328,18 @@ func create_sound(sound_name, position=null):
 	var scene_root = get_tree().root.get_children()[0]
 	scene_root.add_child(audio_clone)
 	audio_clone.play_sound(sound_name, position)
+
+
+func add_health(additional_health):
+	health += additional_health
+	health = clamp(health, 0, MAX_HEALTH)
+
+
+func add_ammo(additional_ammo):
+	if (current_weapon_name != "UNARMED"):
+		if (weapons[current_weapon_name].CAN_REFILL == true):
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
+
+
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Gamemode_Objects/Metal_One.material" type="Material" id=1]
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Two.material" type="Material" id=2]
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Red.material" type="Material" id=3]
+[ext_resource path="res://Health_Pickup.gd" type="Script" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.055"
@@ -124,6 +125,7 @@ tracks/1/keys = {
 }
 
 [node name="Health_Pickup" type="Spatial"]
+script = ExtResource( 4 )
 
 [node name="Holder" type="Spatial" parent="."]
 
