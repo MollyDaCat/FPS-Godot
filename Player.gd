@@ -272,7 +272,10 @@ func process_movement(delta):
 	var accel
 
 	if dir.dot(hvel) > 0:
-		accel = ACCEL
+		if is_sprinting:
+			accel = SPRINT_ACCEL
+		else:
+			accel = ACCEL
 	else:
 		accel = DEACCEL
 
