@@ -7,4 +7,4 @@ func _ready():
 
 func bullet_hit(damage, bullet_hit_pos):
 	if path_to_turret_root != null:
-		get_node(path_to_turret_root).bullet_hit(damage, bullet_hit_pos)
+		get_parent().get_parent().bullet_hit(damage, bullet_hit_pos)

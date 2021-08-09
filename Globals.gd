@@ -96,4 +96,16 @@ func get_respawn_position():
 		var respawn_point = rand_range(0, respawn_points.size() - 1)
 		return respawn_points[respawn_point].global_transform.origin
 
+func play_sound(sound_name, loop_sound=false, sound_position=null):
+	if audio_clips.has(sound_name):
+		var new_audio = SIMPLE_AUDIO_PLAYER_SCENE.instance()
+		new_audio.should_loop = loop_sound
+
+		add_child(new_audio)
+		created_audio.append(new_audio)
+
+		new_audio.play_sound(audio_clips[sound_name], sound_position)
+
+	else:
+		print ("ERROR: cannot play sound that does not exist in audio_clips!")
 

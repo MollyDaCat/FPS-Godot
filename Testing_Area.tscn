@@ -1,9 +1,11 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
 [ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Ammo_Pickup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Turret.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Target.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -85,6 +87,9 @@ bounce = 0.6
 bounce = 0.6
 
 [node name="Testing_Area" type="Spatial"]
+
+[node name="Target_Whole" parent="." instance=ExtResource( 6 )]
+transform = Transform( -0.0222874, 0.0222357, -1.15407, -0.0686575, -1.15227, -0.020875, -1.15224, 0.068229, 0.0235666, -39.8487, 15.2185, -0.571161 )
 
 [node name="Box" type="Spatial" parent="."]
 
@@ -340,3 +345,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5281, 1.83981, -21.15 )
 
 [node name="Ammo_Pickup" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.0029, 1.75493, -22.3753 )
+
+[node name="Turret" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1.1545, 0, 0, 0, 1.1545, 0, 0, 0, 1.1545, -28.2444, 0.990468, 28.3642 )
