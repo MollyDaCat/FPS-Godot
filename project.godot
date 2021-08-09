@@ -19,6 +19,10 @@ config/name="Godot FPS"
 run/main_scene="res://Testing_Area.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://Globals.gd"
+
 [display]
 
 window/size/width=1280
