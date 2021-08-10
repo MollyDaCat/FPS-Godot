@@ -133,7 +133,7 @@ func process_input(delta):
 	
 	
 	#Walking or something like it
-	
+	dir = Vector3()
 	var cam_xform = camera.get_global_transform()
 	
 	var input_movement_vector = Vector2()

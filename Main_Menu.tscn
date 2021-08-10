@@ -70,6 +70,9 @@ script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+testing_area_scene = "res://Testing_Area.tscn"
+space_level_scene = "res://Space_Level.tscn"
+ruins_level_scene = "res://Ruins_Level.tscn"
 
 [node name="Background_Animation" type="Spatial" parent="."]
 

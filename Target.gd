@@ -34,10 +34,10 @@ func bullet_hit(damage, bullet_transform):
 	current_health -= damage
 	if current_health <= 0:
 		
-		var clone = destroyed_target.instance()
-		broken_target_holder.add_child(clone)
 		
-		for rigid in clone.get_children():
+		broken_target_holder.add_child(destroyed_target.instance())
+		
+		for rigid in destroyed_target.instance().get_children():
 			if rigid is RigidBody:
 				var center_in_rigid_space = broken_target_holder.global_transform.origin - rigid.global_transform.origin
 				var direction = (rigid.transform.origin - center_in_rigid_space).normalized()

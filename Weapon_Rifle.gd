@@ -27,6 +27,9 @@ func _ready():
 func fire_weapon():
 	var ray = $Ray_Cast
 	ray.force_raycast_update()
+	
+	ammo_in_weapon -= 1
+	
 
 	if ray.is_colliding():
 		var body = ray.get_collider()
