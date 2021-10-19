@@ -75,7 +75,7 @@ var health = 100
 var UI_status_label
 
 const POWER_TIME = 60
-var power_left
+var power_left = 0
 
 
 func _ready():
@@ -127,6 +127,7 @@ func _physics_process(delta):
 	
 	process_UI(delta)
 	process_respawn(delta)
+	dimension(delta)
 
 
 
@@ -400,13 +401,13 @@ func _input(event):
 func process_UI(delta):
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
 		# First line: Health, second line: Grenades, third line: score
-		UI_status_label.text = "HEALTH: " + str(health) + \
+		UI_status_label.text = "HEALTH: " + str(round(health)) + \
 				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
 				"\nSCORE: " + str(round(Globals.score))
 	else:
 		var current_weapon = weapons[current_weapon_name]
 		# First line: Health, second line: weapon and ammo, third line: grenades, fourth line: score
-		UI_status_label.text = "HEALTH: " + str(health) + \
+		UI_status_label.text = "HEALTH: " + str(round(health)) + \
 				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
 				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
 				"\nSCORE: " + str(round(Globals.score))
@@ -504,15 +505,18 @@ func process_view_input(delta):
 func dimension(delta) :
 	
 	if Globals.dimension > 0:
+		power_left = POWER_TIME
 		if power_left > 0:
 			power_left -= delta
-		else: 
+		else:
 			Globals.dimension = 0
 	
 	if Globals.dimension == 0:
 		pass
 	if Globals.dimension == 1:
-		health += 1
+		health += 5 * delta
+		print (health)
+		print (Globals.dimension)
 	if Globals.dimension == 2:
 		pass
 	if Globals.dimension == 3:

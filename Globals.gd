@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 
-var dimension = 0
+var dimension = 1
 
 var mouse_sensitivity = 0.08
 var joypad_sensitivity = 2
@@ -18,7 +18,7 @@ var audio_clips = {
 }
 
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
-var created_audio = []
+var created_audio = [] 
 
 # All the GUI/UI-related variables
 
