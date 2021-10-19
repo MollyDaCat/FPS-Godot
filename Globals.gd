@@ -1,5 +1,9 @@
 extends Node
 
+var score = 0
+
+var dimension = 0
+
 var mouse_sensitivity = 0.08
 var joypad_sensitivity = 2
 
@@ -70,6 +74,10 @@ func _process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 			get_tree().paused = true
+	if score < 0.5:
+		score = 0.5
+	score -= delta * 0.5
+	#adds a time function to the game as well as linking this to score. This means that the player loses score the longer they take
 
 func popup_closed():
 	get_tree().paused = false

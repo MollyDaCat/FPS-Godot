@@ -88,6 +88,7 @@ playback_speed = 0.18
 anims/Background_Animation = SubResource( 3 )
 
 [node name="Start_Menu" type="Panel" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
 margin_right = 330.0
 margin_bottom = 720.0
@@ -157,9 +158,8 @@ custom_fonts/font = SubResource( 5 )
 text = "Quit"
 
 [node name="Level_Select_Menu" type="Panel" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
-margin_right = 330.0
+margin_right = 418.0
 margin_bottom = 720.0
 custom_styles/panel = SubResource( 4 )
 
@@ -192,10 +192,13 @@ text = "Back"
 [node name="Button_Level_Testing_Area" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 113.0
-margin_right = 70.0
-margin_bottom = 253.0
+margin_left = -158.643
+margin_top = 121.864
+margin_right = -18.6427
+margin_bottom = 261.864
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Testing_Area"]
 anchor_left = 0.5
@@ -212,10 +215,10 @@ expand = true
 [node name="Button_Level_Space" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 275.0
-margin_right = 70.0
-margin_bottom = 415.0
+margin_left = -159.751
+margin_top = 415.72
+margin_right = -19.7507
+margin_bottom = 555.72
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Space"]
 anchor_left = 0.5
@@ -232,10 +235,10 @@ expand = true
 [node name="Button_Level_Ruins" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 433.0
-margin_right = 70.0
-margin_bottom = 573.0
+margin_left = 33.0471
+margin_top = 120.535
+margin_right = 173.047
+margin_bottom = 260.535
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Ruins"]
 anchor_left = 0.5
@@ -248,6 +251,13 @@ margin_right = 60.0
 margin_bottom = 60.0
 texture = ExtResource( 5 )
 expand = true
+
+[node name="Button" type="Button" parent="Level_Select_Menu"]
+margin_left = 244.875
+margin_top = 417.729
+margin_right = 384.875
+margin_bottom = 557.729
+text = "Game Scene"
 
 [node name="Options_Menu" type="Panel" parent="."]
 visible = false

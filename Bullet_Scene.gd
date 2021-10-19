@@ -14,7 +14,7 @@ func _ready():
 
 func _physics_process(delta):
 	var forward_dir = global_transform.basis.z.normalized()
-	global_translate(forward_dir * BULLET_SPEED * delta) 
+	global_translate(forward_dir * BULLET_SPEED * delta * 2) 
 # Movement
 	timer += delta
 	if timer >= KILL_TIMER:

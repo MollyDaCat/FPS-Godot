@@ -74,6 +74,8 @@ var health = 100
 
 var UI_status_label
 
+const POWER_TIME = 60
+var power_left
 
 
 func _ready():
@@ -397,15 +399,17 @@ func _input(event):
 
 func process_UI(delta):
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
-		# First line: Health, second line: Grenades
+		# First line: Health, second line: Grenades, third line: score
 		UI_status_label.text = "HEALTH: " + str(health) + \
-				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
+				"\nSCORE: " + str(round(Globals.score))
 	else:
 		var current_weapon = weapons[current_weapon_name]
-		# First line: Health, second line: weapon and ammo, third line: grenades
+		# First line: Health, second line: weapon and ammo, third line: grenades, fourth line: score
 		UI_status_label.text = "HEALTH: " + str(health) + \
 				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
-				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) + \
+				"\nSCORE: " + str(round(Globals.score))
 
 func process_reloading(delta):
 	if reloading_weapon == true:
@@ -435,6 +439,8 @@ func add_grenade(additional_grenade):
 
 func bullet_hit(damage, bullet_hit_pos):
 	health -= damage
+	Globals.score -= damage
+	print (Globals.score)
 
 func process_respawn(delta):
 
@@ -494,3 +500,26 @@ func process_respawn(delta):
 
 func process_view_input(delta):
 	pass
+
+func dimension(delta) :
+	
+	if Globals.dimension > 0:
+		if power_left > 0:
+			power_left -= delta
+		else: 
+			Globals.dimension = 0
+	
+	if Globals.dimension == 0:
+		pass
+	if Globals.dimension == 1:
+		health += 1
+	if Globals.dimension == 2:
+		pass
+	if Globals.dimension == 3:
+		pass
+	if Globals.dimension == 4:
+		pass
+	if Globals.dimension == 5:
+		pass
+
+

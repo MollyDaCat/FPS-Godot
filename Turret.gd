@@ -1,5 +1,9 @@
 extends Spatial
 
+var life = 0
+
+#keeps track of if the player should be able to earn points
+
 export (bool) var use_raycast = false
 
 const TURRET_DAMAGE_BULLET = 20
@@ -41,6 +45,8 @@ func _ready():
 
 	$Vision_Area.connect("body_entered", self, "body_entered_vision")
 	$Vision_Area.connect("body_exited", self, "body_exited_vision")
+	
+	var Skeep = 0
 
 	node_turret_head = $Head
 	node_raycast = $Head/Ray_Cast
@@ -95,6 +101,7 @@ func _physics_process(delta):
 		else:
 			turret_health = MAX_TURRET_HEALTH
 			smoke_particles.emitting = false
+			life = 0 #Linked to turret being destroyed timer being reset when shot when dead. This allows the turret to be killed again
 
 
 func fire_bullet():
@@ -156,5 +163,12 @@ func bullet_hit(damage, bullet_hit_pos):
 	turret_health -= damage
 
 	if turret_health <= 0:
-		smoke_particles.emitting = true
-		destroyed_timer = DESTROYED_TIME
+		
+		if life == 0:
+			Globals.score += MAX_TURRET_HEALTH * 5
+			life += 1
+			smoke_particles.emitting = true
+			destroyed_timer = DESTROYED_TIME
+			#This is to stop the player from both resetting the destroyed time by shooting a destroyed turret and to stop the score from increasing when the turret dies
+		else:
+			pass
