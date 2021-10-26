@@ -26,13 +26,14 @@ func _ready():
 func fire_weapon():
 	var clone = bullet_scene.instance()
 	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(clone)
+	scene_root.add_child(clone) #adds a bullet scene when the gun is shot, therefore adding a bullet
 
 	clone.global_transform = self.global_transform
 	clone.scale = Vector3(4, 4, 4)
 	clone.BULLET_DAMAGE = DAMAGE
 	ammo_in_weapon -= 1
 	player_node.create_sound("Pistol_shot", self.global_transform.origin)
+	#Above code spawns the bullet, gives it damage and audio and decreases the amount of ammo within the weapon
 
 
 func equip_weapon():

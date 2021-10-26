@@ -47,4 +47,4 @@ func bullet_hit(damage, bullet_transform):
 		target_collision_shape.disabled = true
 		visible = false
 
-
+#Causes game to break when the target is destroyed. I believe this is due to it not being able to find the broken target, and as such crashes the game. If this is not the case it is the impulse being applied to said broken target. However this is a low priority fix.

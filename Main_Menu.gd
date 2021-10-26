@@ -7,6 +7,7 @@ var options_menu
 export (String, FILE) var testing_area_scene
 export (String, FILE) var space_level_scene
 export (String, FILE) var ruins_level_scene
+export (String, FILE) var game_level_scene
 
 func _ready():
 	start_menu = $Start_Menu
@@ -22,6 +23,7 @@ func _ready():
 	$Level_Select_Menu/Button_Level_Testing_Area.connect("pressed", self, "level_select_menu_button_pressed", ["testing_scene"])
 	$Level_Select_Menu/Button_Level_Space.connect("pressed", self, "level_select_menu_button_pressed", ["space_level"])
 	$Level_Select_Menu/Button_Level_Ruins.connect("pressed", self, "level_select_menu_button_pressed", ["ruins_level"])
+	$Level_Select_Menu/Button_Level_Game.connect("pressed", self, "level_select_menu_button_pressed", ["game_level"])
 
 	$Options_Menu/Button_Back.connect("pressed", self, "options_menu_button_pressed", ["back"])
 	$Options_Menu/Button_Fullscreen.connect("pressed", self, "options_menu_button_pressed", ["fullscreen"])

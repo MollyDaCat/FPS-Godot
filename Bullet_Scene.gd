@@ -24,7 +24,10 @@ func _physics_process(delta):
 func collided(body):
 	if hit_something == false:
 		if body.has_method("bullet_hit"):
-			body.bullet_hit(BULLET_DAMAGE, global_transform)
+			if Globals.dimension == 2 : 
+				body.bullet_hit(BULLET_DAMAGE * 3, global_transform)
+			else : 
+				body.bullet_hit(BULLET_DAMAGE, global_transform)
 
 	hit_something = true
 	queue_free()

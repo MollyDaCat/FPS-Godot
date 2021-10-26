@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const MAX_HEALTH = 150
+const MAX_HEALTH = 200
 
 const RESPAWN_TIME = 4
 var dead_time = 0
@@ -514,7 +514,10 @@ func dimension(delta) :
 	if Globals.dimension == 0:
 		pass
 	if Globals.dimension == 1:
-		health += 5 * delta
+		if health <= MAX_HEALTH :
+			health += 5 * delta
+		else : 
+			pass
 		print (health)
 		print (Globals.dimension)
 	if Globals.dimension == 2:
@@ -526,4 +529,5 @@ func dimension(delta) :
 	if Globals.dimension == 5:
 		pass
 
+#Above is the framework for powerups. This is done both here and in a few other places depending on what is being effected. For example the changes for damage are changed in the bullet scene.
 

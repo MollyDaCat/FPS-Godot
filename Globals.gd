@@ -2,7 +2,9 @@ extends Node
 
 var score = 0
 
-var dimension = 1
+var dimension = 2 #Keeps track of which powerup the player is currently in
+
+
 
 var mouse_sensitivity = 0.08
 var joypad_sensitivity = 2
@@ -16,6 +18,8 @@ var audio_clips = {
 	"Rifle_shot": preload("res://211566__ballistiq85__laugh-1.wav"),
 	"Gun_cock": preload("res://211566__ballistiq85__laugh-1.wav"),
 }
+
+#This loads the audio for the guns being shot. However at the moment all of these are place-holders. However the script is still here. When the guns fire they get the audio from here.
 
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
 var created_audio = [] 
@@ -47,6 +51,9 @@ func load_new_scene(new_scene_path):
 			sound.queue_free()
 	created_audio.clear()
 
+#This is the script used to load new scenes. As such, for example, in the main menu, we run the scene change through this script here.
+
+
 
 
 func set_debug_display(display_on):
@@ -59,6 +66,8 @@ func set_debug_display(display_on):
 			debug_display = DEBUG_DISPLAY_SCENE.instance()
 			canvas_layer.add_child(debug_display)
 
+#Adds a debug display to the game
+
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if popup == null:
@@ -67,6 +76,7 @@ func _process(delta):
 			popup.get_node("Button_quit").connect("pressed", self, "popup_quit")
 			popup.connect("popup_hide", self, "popup_closed")
 			popup.get_node("Button_resume").connect("pressed", self, "popup_closed")
+			#Gives the three buttons in the pause menu a function instead of looking pretty. For the function read the name and it should be pretty obvious
 
 			canvas_layer.add_child(popup)
 			popup.popup_centered()
@@ -96,6 +106,7 @@ func popup_quit():
 		popup = null
 
 	load_new_scene(MAIN_MENU_PATH)
+#This is the function for the quit button in the meny previously mentioned.
 
 func get_respawn_position():
 	if respawn_points == null:
@@ -103,6 +114,8 @@ func get_respawn_position():
 	else:
 		var respawn_point = rand_range(0, respawn_points.size() - 1)
 		return respawn_points[respawn_point].global_transform.origin
+
+#Where the player respawns. This script says that if there is no designated respawn point then the base spawn in at the centre of the axis, however if there is a respawn point it will spawn there, and randomise this repsawn point if there is multiple.
 
 func play_sound(sound_name, loop_sound=false, sound_position=null):
 	if audio_clips.has(sound_name):

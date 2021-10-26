@@ -73,6 +73,7 @@ __meta__ = {
 testing_area_scene = "res://Testing_Area.tscn"
 space_level_scene = "res://Space_Level.tscn"
 ruins_level_scene = "res://Ruins_Level.tscn"
+game_level_scene = "res://Game Scene.tscn"
 
 [node name="Background_Animation" type="Spatial" parent="."]
 
@@ -252,12 +253,15 @@ margin_bottom = 60.0
 texture = ExtResource( 5 )
 expand = true
 
-[node name="Button" type="Button" parent="Level_Select_Menu"]
+[node name="Button_Level_Game" type="Button" parent="Level_Select_Menu"]
 margin_left = 244.875
 margin_top = 417.729
 margin_right = 384.875
 margin_bottom = 557.729
 text = "Game Scene"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Options_Menu" type="Panel" parent="."]
 visible = false

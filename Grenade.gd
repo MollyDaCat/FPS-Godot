@@ -13,6 +13,8 @@ var grenade_mesh
 var blast_area
 var explosion_particles
 
+#Constants :/ what more do you want
+
 func _ready():
 	rigid_shape = $Collision_Shape
 	grenade_mesh = $Grenade
@@ -24,6 +26,7 @@ func _ready():
 func _process(delta):
 	if grenade_timer < GRENADE_TIME:
 		grenade_timer += delta
+		#Runs down the fuse on the grenades
 		return
 	else:
 		if explosion_wait_timer <= 0:
@@ -31,12 +34,16 @@ func _process(delta):
 			grenade_mesh.visible = false
 			rigid_shape.disabled = true
 			mode = RigidBody.MODE_STATIC
-			var bodies = blast_area.get_overlapping_bodies()
+			var bodies = blast_area.get_overlapping_bodies() #What will be effected by the grenades
 			for body in bodies:
 				if body.has_method("bullet_hit"):
 					body.bullet_hit(GRENADE_DAMAGE, body.global_transform.looking_at(global_transform.origin, Vector3(0, 1, 0)))
+					#Damage function of grenades
 		if explosion_wait_timer < EXPLOSION_WAIT_TIME:
 			explosion_wait_timer += delta
 			if explosion_wait_timer >= EXPLOSION_WAIT_TIME:
 				queue_free()
-		
+			#makes stuff blow up when the time runs out
+
+#Above is the script for grenades
+
