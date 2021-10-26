@@ -14,20 +14,20 @@ func _ready():
 
 func _physics_process(delta):
 	var forward_dir = global_transform.basis.z.normalized()
-	global_translate(forward_dir * BULLET_SPEED * delta * 2) 
+	global_translate(forward_dir * BULLET_SPEED * delta * 2) #Gives the bullet a speed
 # Movement
 	timer += delta
 	if timer >= KILL_TIMER:
-		queue_free()
+		queue_free() #Gives the bullet a maximum time spent travelling, and thereofre a maxium distance
 
 
 func collided(body):
 	if hit_something == false:
 		if body.has_method("bullet_hit"):
 			if Globals.dimension == 2 : 
-				body.bullet_hit(BULLET_DAMAGE * 3, global_transform)
+				body.bullet_hit(BULLET_DAMAGE * 2.5, global_transform) #Gives the damage power up, and allows it to work universally (including impulse on objects)
 			else : 
-				body.bullet_hit(BULLET_DAMAGE, global_transform)
+				body.bullet_hit(BULLET_DAMAGE, global_transform) #Normal damage
 
 	hit_something = true
-	queue_free()
+	queue_free() # Removes bullet scene
