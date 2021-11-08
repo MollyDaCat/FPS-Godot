@@ -2,7 +2,7 @@ extends Node
 
 var score = 0
 
-var dimension = 2 #Keeps track of which powerup the player is currently in
+var dimension = 1 #Keeps track of which powerup the player is currently in
 
 
 

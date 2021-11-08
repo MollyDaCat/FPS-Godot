@@ -522,6 +522,8 @@ func dimension(delta) :
 	if Globals.dimension == 1:
 		if health <= MAX_HEALTH :
 			health += 5 * delta
+		if health > MAX_HEALTH : 
+			health == MAX_HEALTH
 		else : 
 			pass
 		print (health)
