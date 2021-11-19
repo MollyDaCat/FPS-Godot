@@ -57,8 +57,6 @@ func unequip_weapon():
 	else:
 		return false
 
-#Both of the above scripts are what allow the player animation for equipping and unequipping weapons
-
 func reload_weapon():
 	var can_reload = false
 
@@ -78,11 +76,8 @@ func reload_weapon():
 			ammo_in_weapon += spare_ammo
 			spare_ammo = 0
 
-#Reloads and keeps track of ammo or the weapon. 
-
 		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
 		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
-
 
 
 		return true

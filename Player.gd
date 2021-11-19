@@ -65,7 +65,7 @@ var animation_manager
 
 var current_weapon_name = "UNARMED"
 var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
-const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"} #Binds for weapons
+const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
 const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
 var changing_weapon = false
 var changing_weapon_name = "UNARMED"
@@ -118,7 +118,7 @@ func _physics_process(delta):
 	if !is_dead:
 		process_input(delta)
 		process_view_input(delta)
-		process_movement(delta) #Links these processes to _physics_process(delta) so that they run on delta (same for below)
+		process_movement(delta)
 
 	
 	if grabbed_object == null:
@@ -137,12 +137,12 @@ func process_input(delta):
 	
 	#Walking or something like it
 	dir = Vector3()
-	var cam_xform = camera.get_global_transform() #Where the player sees from
+	var cam_xform = camera.get_global_transform()
 	
-	var input_movement_vector = Vector2() # Means that the movement is done on vector 2 (x and y axis or forward, back, left, right)
+	var input_movement_vector = Vector2()
 	
-	if Input.is_action_pressed("movement_forward"): #Binds movement key (same for all the below) (in this case forward is w, s is backwards, etc)
-		input_movement_vector.y +=1 #Movement on the specific axis. Forward increases y axis, meaning you move forward. All of the below functions act in the same way
+	if Input.is_action_pressed("movement_forward"):
+		input_movement_vector.y +=1
 	if Input.is_action_pressed("movement_backward"):
 		input_movement_vector.y -= 1
 	if Input.is_action_pressed("movement_left"):
@@ -151,14 +151,14 @@ func process_input(delta):
 		input_movement_vector.x += 1
 	
 	
-	dir += -cam_xform.basis.z * input_movement_vector.y #Moves camera
-	dir += cam_xform.basis.x * input_movement_vector.x #Also moves camera
+	dir += -cam_xform.basis.z * input_movement_vector.y
+	dir += cam_xform.basis.x * input_movement_vector.x
 	
 	# Jumping code
 	
-	if is_on_floor(): #detects if the player is on the floor, if they are, they can jump
-		if Input.is_action_just_pressed("movement_jump"): #detects if the player wants to jump
-			vel.y = JUMP_SPEED # Upwards velocity is set so you move up, and hence jump
+	if is_on_floor():
+		if Input.is_action_just_pressed("movement_jump"):
+			vel.y = JUMP_SPEED
 	
 	#--
 	
@@ -169,27 +169,27 @@ func process_input(delta):
 	
 	# ----------------------------------
 	# Sprinting
-	if Input.is_action_pressed("movement_sprint"): #If the input is being pressed, the max speed increases by changing the is sprinting variables
+	if Input.is_action_pressed("movement_sprint"):
 		is_sprinting = true
-	else: #same as above, but instead it sets the player to not sprint if the input is not being pressed.
+	else:
 		is_sprinting = false
 	# ----------------------------------
 	
 	# ----------------------------------
 	# Turning the flashlight on/off
-	if Input.is_action_just_pressed("flashlight"): # Detects if the player wants to turn off the flashlight
-		if flashlight.is_visible_in_tree(): # Detects if it is off
-			flashlight.hide() #turns off by hiding it from the scene
+	if Input.is_action_just_pressed("flashlight"):
+		if flashlight.is_visible_in_tree():
+			flashlight.hide()
 	else:
-		flashlight.show() # Shows flashlight by unhiding it
+		flashlight.show()
 	# ----------------------------------
 	
 	# ----------------------------------
 	# Changing weapons.
 	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
 	
-	if Input.is_key_pressed(KEY_1): #Key 1 is in this case the number 1 on the keybaord, and the following occurs. This detects if this is pressed.
-		weapon_change_number = 0 #Works off an array above. Weapon 0 is unarmed, Weapon 1 the knife, 2 the pistol, 3 the rifle
+	if Input.is_key_pressed(KEY_1):
+		weapon_change_number = 0
 	if Input.is_key_pressed(KEY_2):
 		weapon_change_number = 1
 	if Input.is_key_pressed(KEY_3):
@@ -197,7 +197,7 @@ func process_input(delta):
 	if Input.is_key_pressed(KEY_4):
 		weapon_change_number = 3
 	
-	if Input.is_action_just_pressed("shift_weapon_positive"): #allows the scroll wheel to change the weapon the player is using
+	if Input.is_action_just_pressed("shift_weapon_positive"):
 		weapon_change_number += 1
 	if Input.is_action_just_pressed("shift_weapon_negative"):
 		weapon_change_number -= 1
@@ -213,19 +213,18 @@ func process_input(delta):
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true
 			mouse_scroll_value = weapon_change_number
-			#This stops the player from chaning weapon when doing things like reloading.
 
 	# ----------------------------------
 	
 # ----------------------------------
 # Firing the weapons
-	if Input.is_action_pressed("fire"): # Detects if the player wants to fire the weapon
+	if Input.is_action_pressed("fire"):
 		if changing_weapon == false:
 			var current_weapon = weapons[current_weapon_name]
 			if current_weapon != null:
 				if current_weapon.ammo_in_weapon > 0:
 					if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
-						animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME) # Plays the firing animation
+						animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
 # ----------------------------------
 	# ----------------------------------
 	
@@ -246,8 +245,6 @@ func process_input(delta):
 									is_reloading = true
 						if is_reloading == false:
 							reloading_weapon = true
-							
-							#Plays the reloading animation
 # ----------------------------------
 	
 	#Grabbing stuff
@@ -264,14 +261,13 @@ func process_input(delta):
 					grabbed_object.mode = RigidBody.MODE_STATIC
 					grabbed_object.collision_layer = 0
 					grabbed_object.collision_mask = 0
-					#Gives the grenade a direction it is thrown. 
 		else: 
 			grabbed_object.mode = RigidBody.MODE_RIGID
 			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalised() * OBJECT_THROW_FORCE)
 			grabbed_object.collision_layer = 1
 			grabbed_object.collision_mask = 1
 			grabbed_object = null
-			#Throws objects if they have beeen picked up
+			
 	if grabbed_object !=null:
 		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
 	
@@ -309,19 +305,17 @@ func process_changing_weapons(delta):
 				current_weapon_name = changing_weapon_name
 				changing_weapon_name = ""
 
-#Code for chaning weapons. Pretty much detects if the player wants to change
-
 func fire_bullet():
 	if changing_weapon == true:
 		return
 
-	weapons[current_weapon_name].fire_weapon() 
+	weapons[current_weapon_name].fire_weapon()
 
 func process_movement(delta):
 	dir.y = 0
-	dir = dir.normalized() #means that the direction depends on where the cemera is facing meaning forward is always forward instead of along the y.axis
+	dir = dir.normalized()
 
-	vel.y += delta * GRAVITY #Player is effected by gravity
+	vel.y += delta * GRAVITY
 
 	var hvel = vel
 	hvel.y = 0
@@ -329,21 +323,21 @@ func process_movement(delta):
 	var target = dir
 
 	if is_sprinting:
-		target *= MAX_SPRINT_SPEED # Nax speed / movement
+		target *= MAX_SPRINT_SPEED
 	else:
-		target *= MAX_SPEED # max speed / movement
+		target *= MAX_SPEED
 
 	var accel
 
 	if dir.dot(hvel) > 0:
 		if is_sprinting:
-			accel = SPRINT_ACCEL #accelerates the player at either sprint or normal speed depending on previous variables / inputs
+			accel = SPRINT_ACCEL
 		else:
 			accel = ACCEL
 	else:
-		accel = DEACCEL #Slows player down
+		accel = DEACCEL
 
-	hvel = hvel.linear_interpolate(target, accel * delta) # Means the player cant go faster if they are moving to the left and forward due to C^2 = A^2+B^2 meaning C^2 is bigger, this prevents this
+	hvel = hvel.linear_interpolate(target, accel * delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))

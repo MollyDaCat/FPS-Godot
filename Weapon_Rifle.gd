@@ -26,22 +26,19 @@ func _ready():
 
 func fire_weapon():
 	var ray = $Ray_Cast
-	ray.force_raycast_update() #Sends a raycast out to act as a bullet. 
+	ray.force_raycast_update()
 	
 	ammo_in_weapon -= 1
 	
 
 	if ray.is_colliding():
-		var body = ray.get_collider() # Detects if the ray is colliding and makes it so the player cannot be damaged
+		var body = ray.get_collider()
 
 		if body == player_node:
 			pass
 		elif body.has_method("bullet_hit"):
-			if Globals.dimension == 2:
-				body.bullet_hit(DAMAGE * 2, ray.global_transform) #Increased damge for the damage powerup
-			else : 
-				body.bullet_hit(DAMAGE, ray.global_transform) # Normal damage function
-	player_node.create_sound("Rifle_shot", ray.global_transform.origin) # Runs the audio for the rifle being shot
+			body.bullet_hit(DAMAGE, ray.global_transform)
+	player_node.create_sound("Rifle_shot", ray.global_transform.origin)
 
 
 func equip_weapon():
@@ -66,29 +63,27 @@ func unequip_weapon():
 
 	return false
 
-#Above two functions are the animations
-
 func reload_weapon():
 	var can_reload = false
 
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
-		can_reload = true # If weapon is idle (so you cant reload while shootng)
+		can_reload = true
 
 	if spare_ammo <= 0 or ammo_in_weapon == AMMO_IN_MAG:
-		can_reload = false # Cant reload if mag full or no spare ammo
+		can_reload = false
 
 	if can_reload == true:
-		var ammo_needed = AMMO_IN_MAG - ammo_in_weapon #Detects how much ammo is needed for the weapon to reload
+		var ammo_needed = AMMO_IN_MAG - ammo_in_weapon
 
-		if spare_ammo >= ammo_needed: # Makes sure you have enough ammo in reserve to reload the weapon
-			spare_ammo -= ammo_needed # Takes the needed ammo from spare ammo
-			ammo_in_weapon = AMMO_IN_MAG # Adds ammo to the gun
+		if spare_ammo >= ammo_needed:
+			spare_ammo -= ammo_needed
+			ammo_in_weapon = AMMO_IN_MAG
 		else:
 			ammo_in_weapon += spare_ammo
-			spare_ammo = 0 # Only reloads the spare ammo if the ammo you have is less then required.
+			spare_ammo = 0
 
 		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin) # reloading audio
+		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
 
 
 		return true
@@ -98,5 +93,3 @@ func reload_weapon():
 func reset_weapon():
 	ammo_in_weapon = 50
 	spare_ammo = 100
-	
-	#Resets weapon to base values
